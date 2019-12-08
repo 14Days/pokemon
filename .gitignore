@@ -1,0 +1,6 @@
+# 编辑器
+.idea
+.vscode
+
+# 数据集
+data/set
