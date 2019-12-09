@@ -1,9 +1,12 @@
 import pathlib
 import csv
 import os
+import click
 from PIL import Image
 
 
+@click.command()
+@click.option('--dir', prompt=True, type=click.Choice(['style', 'color', 'reflex', 'space']), help='kind of model.')
 def delete_image(dir):
     path = pathlib.Path(__file__).parent.parent
     path = pathlib.Path.joinpath(path, 'data', 'set', dir, 'image.csv')
@@ -20,6 +23,5 @@ def delete_image(dir):
                 continue
 
 
-
 if __name__ == '__main__':
-    delete_image('color')
+    delete_image()
