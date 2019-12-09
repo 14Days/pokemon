@@ -1,4 +1,5 @@
 import click
+from models import Net
 
 
 @click.command()
@@ -7,7 +8,9 @@ import click
 @click.option('--kind', prompt=True, type=click.Choice(['style', 'color', 'reflex', 'space']), help='kind of model.')
 @click.option('--mode', prompt=True, type=click.Choice(['train', 'test']), help='mode of model.')
 def main(size, epoch, kind, mode):
-    print(size, epoch, kind, mode)
+    net = Net(kind, mode, size, epoch)
+    net.get_params_number()
+    net.train()
 
 
 if __name__ == '__main__':
