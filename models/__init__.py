@@ -28,7 +28,6 @@ class Net:
 
         # 加载参数
         if os.path.exists(self.path):
-            print(111)
             checkpoint = torch.load(self.path)
             self.model.model.load_state_dict(checkpoint['net'])
             self.model.optimizer.load_state_dict(checkpoint['optimizer'])
@@ -56,6 +55,7 @@ class Net:
                 # 获取图片和标签
                 inputs, labels = data
                 inputs = inputs.to(self.device)
+                labels = labels.to(self.device)
 
                 # forward, backward, update weights
                 self.model.optimizer.zero_grad()
