@@ -20,7 +20,7 @@ class MyVGG:
 
         # 得到loss、优化器等
         self.loss_func = nn.CrossEntropyLoss()
-        self.optimizer = optim.SGD(self.model.parameters(0.001), lr=0.001, momentum=0.9, dampening=0.1)
+        self.optimizer = optim.SGD(self.model.parameters(0.001), lr=0.0001, momentum=0.9, dampening=0.1)
         self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=50, gamma=0.1)
 
 
