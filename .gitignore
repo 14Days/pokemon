@@ -7,3 +7,5 @@ data/set
 
 # 训练参数
 *.pkl
+*.pyc
+*.zip
