@@ -31,7 +31,7 @@ class Net:
             checkpoint = torch.load(self.path)
             self.model.model.load_state_dict(checkpoint['net'])
             self.model.optimizer.load_state_dict(checkpoint['optimizer'])
-            self.start_epoch = checkpoint['epoch'] + 1
+            # self.start_epoch = checkpoint['epoch'] + 1
 
     def get_params_number(self):
         """
@@ -46,6 +46,7 @@ class Net:
         """
         训练模型
         """
+        max_correct = 0.0
         for index in range(self.start_epoch, self.epoch):
             loss_sigma = 0.0  # 记录一个 epoch 的 loss 之和
             correct = 0.0
@@ -76,12 +77,14 @@ class Net:
                     loss_avg = loss_sigma / 10
                     loss_sigma = 0.0
                     print("Training: Epoch[{:0>3}/{:0>3}] Iteration[{:0>3}/{:0>3}] Loss: {:.4f} Acc:{:.2%}".format(
-                        self.epoch + 1, self.epoch, i + 1, len(self.loader), loss_avg, correct / total))
-                    torch.save({
-                        'net': self.model.model.state_dict(),
-                        'optimizer': self.model.optimizer.state_dict(),
-                        'epoch': index
-                    }, self.path)
+                        index, self.epoch, i + 1, len(self.loader), loss_avg, correct / total))
+                    if correct > max_correct:
+                        max_correct = correct
+                        torch.save({
+                            'net': self.model.model.state_dict(),
+                            'optimizer': self.model.optimizer.state_dict(),
+                            'epoch': index
+                        }, self.path)
 
             # 更新学习率
             self.model.scheduler.step(self.epoch)
