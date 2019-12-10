@@ -67,7 +67,7 @@ class Net:
                 # 统计预测信息
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
-                correct += (predicted == labels).squeeze().sum().numpy()
+                correct += (predicted.cpu() == labels.cpu()).squeeze().sum().numpy()
                 loss_sigma += loss.item()
 
                 # 每 10 个 iteration 打印一次训练信息，loss 为 10 个 iteration 的平均
