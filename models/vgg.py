@@ -7,8 +7,8 @@ class MyVGG:
     def __init__(self, output):
         # 得到神经网络
         self.model = models.vgg16(pretrained=True)
-        for param in self.model.parameters():
-            param.requires_grad = False
+        # for param in self.model.parameters():
+        #     param.requires_grad = False
 
         self.model.classifier[6] = nn.Sequential(
             nn.Linear(4096, 256),
