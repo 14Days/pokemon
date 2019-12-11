@@ -9,6 +9,7 @@ from config import get_save_path
 class Net:
     def __init__(self, kind, mode, batch_size, epoch):
         self.start_epoch = 0
+        self.mode = mode
         self.epoch = epoch
         self.kind = kind
         self.path = get_save_path(kind)
@@ -78,7 +79,7 @@ class Net:
                     loss_sigma = 0.0
                     print("Training: Epoch[{:0>3}/{:0>3}] Iteration[{:0>3}/{:0>3}] Loss: {:.4f} Acc:{:.2%}".format(
                         index, self.epoch, i + 1, len(self.loader), loss_avg, correct / total))
-                    if correct > max_correct:
+                    if correct > max_correct and self.mode == 'train':
                         max_correct = correct
                         torch.save({
                             'net': self.model.model.state_dict(),
