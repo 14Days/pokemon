@@ -96,7 +96,8 @@ class Net:
         for i, data in enumerate(self.loader):
             # 获取图片和标签
             images, labels = data
-            images, labels = images, labels
+            inputs = images.to(self.device)
+            labels = labels.to(self.device)
 
             # forward
             outputs = self.model.model(images)
