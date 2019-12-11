@@ -10,8 +10,11 @@ from models import Net
 @click.option('--mode', prompt=True, type=click.Choice(['train', 'test']), help='mode of model.')
 def main(size, epoch, kind, mode):
     net = Net(kind, mode, size, epoch)
-    net.get_params_number()
-    net.train()
+    if mode == 'train':
+        net.get_params_number()
+        net.train()
+    else:
+        net.test()
 
 
 if __name__ == '__main__':
