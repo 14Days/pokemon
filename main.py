@@ -5,7 +5,7 @@ from models import Net
 @click.command()
 @click.option('--size', default=32, type=int, help='Number of batch size.')
 @click.option('--epoch', default=10, type=int, help='Number of epoch.')
-@click.option('--lr', default=0.0001, type=int, help='Number of learn rate')
+@click.option('--lr', default=0.0001, type=float, help='Number of learn rate')
 @click.option('--name', prompt=True, type=str, help='Name of model')
 @click.option('--kind', prompt=True, type=click.Choice(['style', 'color', 'reflex', 'space', 'thy']),
               help='Kind of dataset.')
