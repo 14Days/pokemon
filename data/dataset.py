@@ -6,8 +6,8 @@ from data.transforms import _image_transforms
 
 
 class MyDataset(Dataset):
-    def __init__(self, kind: str, mode: str):
-        self.mode = mode
+    def __init__(self, kind: str, mode: str, net: str):
+        self.transform = f'{net}_{mode}'
         # 加载图片路径
         path = pathlib.Path(__file__).parent
         path = pathlib.Path.joinpath(path, 'set', kind)
@@ -16,7 +16,7 @@ class MyDataset(Dataset):
     def __getitem__(self, index):
         image_name = self.images[index]
         image = Image.open(image_name).convert("RGB")
-        image_as_tensor = _image_transforms[self.mode](image)
+        image_as_tensor = _image_transforms[self.transform](image)
         label = self.labels[index]
         return image_as_tensor, label
 
@@ -25,5 +25,5 @@ class MyDataset(Dataset):
 
 
 if __name__ == '__main__':
-    temp = MyDataset('color', 'train')
+    temp = MyDataset('color', 'train', 'BnOpt')
     print(temp.__getitem__(5))

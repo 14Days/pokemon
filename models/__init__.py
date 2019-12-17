@@ -2,6 +2,7 @@ import os
 import torch
 import torch.nn as nn
 from models.vgg import MyVGG
+from models.bn_opt import MyBnOpt
 from data import get_data_loader
 from config import get_save_path
 
@@ -11,15 +12,16 @@ class Net:
         self.max_correct = 0
         self.epoch = epoch
         self.kind = kind
-        self.path = get_save_path(kind)
+        self.path = get_save_path(kind, name)
         self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-        # 得到数据集
-        self.loader, self.dataset = get_data_loader(kind, mode, batch_size)
-
-        # 得到神经网络
+        # 得到神经网络、数据集
         if name.startswith('VGG'):
+            self.loader, self.dataset = get_data_loader(kind, mode, batch_size, 'VGG')
             self.model = MyVGG(name, len(self.dataset.name2label.keys()), lr)
+        elif name == 'BnOpt':
+            self.loader, self.dataset = get_data_loader(kind, mode, batch_size, 'BnOpt')
+            self.model = MyBnOpt(len(self.dataset.name2label.keys()), lr)
         else:
             raise RuntimeError('None of model')
 

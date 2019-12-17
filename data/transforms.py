@@ -8,7 +8,7 @@ _normal_transform = transforms.Normalize(_normal_mean, _normal_std)
 
 # 定义不同的transform
 _image_transforms = {
-    'train':
+    'VGG_train':
         transforms.Compose([
             transforms.RandomResizedCrop(size=256, scale=(0.8, 1.0)),
             transforms.RandomRotation(degrees=15),
@@ -18,10 +18,27 @@ _image_transforms = {
             transforms.ToTensor(),
             _normal_transform
         ]),
-    'test':
+    'VGG_test':
         transforms.Compose([
             transforms.Resize(size=256),
             transforms.CenterCrop(size=224),
+            transforms.ToTensor(),
+            _normal_transform
+        ]),
+    'BnOpt_train':
+        transforms.Compose([
+            transforms.RandomResizedCrop(size=256, scale=(0.8, 1.0)),
+            transforms.RandomRotation(degrees=15),
+            transforms.ColorJitter(),
+            transforms.RandomHorizontalFlip(),
+            transforms.CenterCrop(size=200),
+            transforms.ToTensor(),
+            _normal_transform
+        ]),
+    'BnOpt_test':
+        transforms.Compose([
+            transforms.Resize(size=256),
+            transforms.CenterCrop(size=200),
             transforms.ToTensor(),
             _normal_transform
         ])
